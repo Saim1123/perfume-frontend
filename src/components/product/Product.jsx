@@ -25,7 +25,10 @@ const Product = () => {
           <p>RS.6,900</p>
         </div>
         <div>
-          <Link to="/carts" className="border px-6 py-2 bg-black text-white cursor-pointer">
+          <Link
+            to="/carts"
+            className="border px-6 py-2 bg-black text-white cursor-pointer rounded-md hover:bg-gray-700 transition"
+          >
             Add to cart
           </Link>
         </div>

@@ -5,7 +5,7 @@ import { useAuthStore } from "../../store/authStore"; // Assuming auth store is 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { checkAuth, isAuthenticated, isVerified, user } = useAuthStore();
+  const { checkAuth, isAuthenticated, isVerified, user, isCheckingAuth } = useAuthStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Navbar = () => {
 
             {isAuthenticated && isVerified ? (
               <Link
-                to="/cart"
+                to="/carts"
                 className="text-white bg-black p-2 rounded-full text-2xl hover:bg-gray-800 transition-colors"
               >
                 <CiShoppingCart />
@@ -119,7 +119,7 @@ const Navbar = () => {
 
             {isAuthenticated && isVerified ? (
               <Link
-                to="/cart"
+                to="/carts"
                 className="flex items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
               >
                 <CiShoppingCart className="font-bold" /> Cart

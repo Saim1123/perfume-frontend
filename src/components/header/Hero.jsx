@@ -13,13 +13,13 @@ const Hero = () => {
       <div className="flex flex-col md:flex-row gap-3 mt-4">
         <button
           onClick={() => navigate("/products")}
-          className="bg-black px-4 py-2 border-[2px] border-black text-white"
+          className="bg-black px-4 py-2 rounded-md border-[2px] border-black text-white hover:bg-gray-700 transition-colors"
         >
           Buy Products
         </button>
         <button
           onClick={() => navigate("/signup")}
-          className="border-black px-4 py-2 border-[2px] hover:bg-black hover:text-white"
+          className="border-black px-4 py-2 rounded-md border-[2px] hover:bg-black hover:text-white transition"
         >
           Create Account
         </button>
