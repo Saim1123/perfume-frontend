@@ -7,7 +7,7 @@ const Hero = () => {
 
   return (
     <section className="bg flex flex-col justify-center px-12 gap-4 py-16">
-      <h1 className="text-7xl font-bold w-full md:w-[65%]">Discover the Essence of Luxury</h1>
+      <h1 className="text-6xl md:text-7xl font-bold w-full md:w-[80%] lg:w-[65%]">Discover the Essence of Luxury</h1>
       <p className="text-base mt-4 w-full md:w-[65%]">
         Indulge in our exquisite collection of perfumes crafted from the finest ingredients. Whether you seek a fresh,
         floral scent or a deep, woody allure, our fragrances offer an unforgettable experience.

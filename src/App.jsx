@@ -38,9 +38,6 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  console.log("isAuthenticated", isAuthenticated);
-  console.log("user", user);
-
   return (
     <>
       <Routes>
@@ -72,9 +69,16 @@ function App() {
               </RedirectAuthenticatedUser>
             }
           />
-          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route
+            path="/forget-password"
+            element={
+              <RedirectAuthenticatedUser>
+                <ForgetPassword />
+              </RedirectAuthenticatedUser>
+            }
+          />
           <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route
             path="/dashboard"
             element={
