@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CiShoppingCart } from "react-icons/ci";
-import { useAuthStore } from "../../store/authStore"; // Assuming auth store is in this path
+import { useAuthStore } from "../../store/authStore";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,11 +14,6 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
-
   return (
     <nav className="bg-white w-full shadow-lg">
       <div className="container mx-auto px-4 py-3">
@@ -26,7 +21,7 @@ const Navbar = () => {
           {/* Logo */}
           <div>
             <Link to="/" className="text-2xl font-bold text-gray-800">
-              <img src="/logo3.svg" alt="Logo" className="h-8 w-auto" />
+              <img src="/logo.svg" alt="Logo" className="h-8 w-auto" />
             </Link>
           </div>
 
@@ -48,19 +43,19 @@ const Navbar = () => {
               </Link>
             ) : (
               <Link
-                to="/signup"
+                to="/login"
                 className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
               >
-                Signup
+                Login
               </Link>
             )}
 
             {isAuthenticated && isVerified ? (
               <Link
                 to="/carts"
-                className="text-white bg-black p-2 rounded-full text-2xl hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center text-white bg-black p-3 rounded-full text-xl hover:bg-gray-800 transition-colors"
               >
-                <CiShoppingCart />
+                <FaCartShopping />
               </Link>
             ) : null}
           </div>
@@ -95,6 +90,7 @@ const Navbar = () => {
             <Link
               to="/products"
               className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+              onClick={toggleMenu}
             >
               Products
             </Link>
@@ -104,6 +100,7 @@ const Navbar = () => {
               <Link
                 to="/dashboard"
                 className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                onClick={toggleMenu}
               >
                 {user.firstName}
               </Link>
@@ -112,6 +109,7 @@ const Navbar = () => {
               <Link
                 to="/signup"
                 className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                onClick={toggleMenu}
               >
                 Signup
               </Link>
@@ -120,9 +118,10 @@ const Navbar = () => {
             {isAuthenticated && isVerified ? (
               <Link
                 to="/carts"
-                className="flex items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                className="flex gap-2 items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                onClick={toggleMenu}
               >
-                <CiShoppingCart className="font-bold" /> Cart
+                <FaCartShopping /> Cart
               </Link>
             ) : null}
           </nav>
