@@ -1,13 +1,13 @@
-import axios from "axios";
-import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/authStore";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { login, error, isLoading } = useAuthStore();
 
   const formik = useFormik({
     initialValues: {
@@ -18,17 +18,13 @@ const Login = () => {
       email: yup.string().email("Invalid email address").required("Email is required"),
       password: yup.string().required("Password is required"),
     }),
-    onSubmit: async (values, { resetForm }) => {
-      setIsSubmitting(true);
+    onSubmit: async ({ email, password }) => {
       try {
-        await axios.post("http://localhost:5000/api/v1/user/login", values);
-        console.log("User Login!");
-        resetForm();
-      } catch (error) {
-        console.log("Error during submission:", error.message);
-      } finally {
-        setIsSubmitting(false);
+        await login(email, password);
         navigate("/");
+        toast.success("Login successfully");
+      } catch (error) {
+        console.error("Error: ", error);
       }
     },
   });
@@ -36,7 +32,7 @@ const Login = () => {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="w-[90%] shadow-md flex mt-6 justify-center flex-col gap-6 md:w-1/2 mx-auto p-10"
+      className="w-[90%] bg-white shadow-md flex mt-6 justify-center flex-col gap-6 md:w-1/2 mx-auto p-10"
     >
       <h2 className="text-xl md:text-2xl text-center ">Login With Your Account</h2>
       <input
@@ -49,7 +45,7 @@ const Login = () => {
         className="p-2 border-b-[1.5px] text-sm md:text-base border-black focus:outline-none"
       />
       {formik.touched.email && formik.errors.email ? (
-        <div className="text-red-600 p-2 text-sm md:text-base bg-red-200 rounded-sm">{formik.errors.email}</div>
+        <div className="text-red-600 text-sm md:text-base px-1">{formik.errors.email}</div>
       ) : null}
 
       <input
@@ -62,8 +58,10 @@ const Login = () => {
         className="p-2 border-b-[1.5px] text-sm md:text-base border-black focus:outline-none"
       />
       {formik.touched.password && formik.errors.password ? (
-        <div className="text-red-600 p-2 text-sm md:text-base bg-red-200 rounded-sm">{formik.errors.password}</div>
+        <div className="text-red-600 text-sm md:text-base px-1">{formik.errors.password}</div>
       ) : null}
+
+      {error && <div className="text-red-600 text-sm md:text-base">{error}</div>}
 
       <p className="text-sm text-gray-500">
         Don't have an account?{" "}
@@ -74,11 +72,16 @@ const Login = () => {
 
       <button
         type="submit"
-        disabled={isSubmitting || !formik.isValid}
+        disabled={isLoading || !formik.isValid}
         className={`py-2 px-4 rounded-sm bg-black text-white hover:bg-gray-900 cursor-pointer flex items-center justify-center`}
       >
-        {isSubmitting ? <ClipLoader color="white" size={20} /> : "Login"}
+        {isLoading ? <ClipLoader color="white" size={20} /> : "Login"}
       </button>
+      <p className="text-sm text-gray-500">
+        <Link className="underline text-black" to="/forget-password">
+          Forget Password?
+        </Link>
+      </p>
     </form>
   );
 };
