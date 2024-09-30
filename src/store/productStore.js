@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/v1";
+import { API_URL } from "./authStore";
 
 axios.defaults.withCredentials = true;
 
@@ -15,7 +14,6 @@ export const useProductStore = create(set => ({
     set({ isLoading: true, error: null });
     try {
       const response = await axios.get(`${API_URL}/products`);
-      console.log(response);
       set({ products: response.data, isLoading: false });
     } catch (error) {
       set({ error: error.response?.data.message || "Error fetching products" });
