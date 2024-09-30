@@ -32,7 +32,7 @@ const Signup = () => {
         await signup(firstName, lastName, email, password);
         navigate("/verify-email");
       } catch (error) {
-        console.log("Error: ", error);
+        console.error("Error: ", error);
       }
     },
   });
