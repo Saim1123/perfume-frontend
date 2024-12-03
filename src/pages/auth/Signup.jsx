@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import ClipLoader from "react-spinners/ClipLoader";
+
 import { useAuthStore } from "../../store/authStore";
+
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Signup = () => {
   const navigate = useNavigate();

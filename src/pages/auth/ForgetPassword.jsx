@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ClipLoader } from "react-spinners";
-import { useAuthStore } from "../../store/authStore";
 import toast from "react-hot-toast";
+
+import { useAuthStore } from "../../store/authStore";
 
 const ForgetPassword = () => {
   const { forgotPassword, isLoading, error } = useAuthStore();

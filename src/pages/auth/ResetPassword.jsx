@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ClipLoader } from "react-spinners";
-import { useAuthStore } from "../../store/authStore";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
+
+import { useAuthStore } from "../../store/authStore";
 
 const ResetPassword = () => {
   const { resetPassword, isLoading, error } = useAuthStore();

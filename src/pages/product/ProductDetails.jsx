@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { useProductStore } from "../../store/productStore";
+import { useCartStore } from "../../store/cartStore";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [mainImage, setMainImage] = useState(null);
   const { product, fetchProductById, isLoading, error } = useProductStore();
+  const { addToCart } = useCartStore();
 
   useEffect(() => {
     fetchProductById(id);
@@ -70,7 +73,12 @@ const ProductDetails = () => {
           <p className="mb-4">{product.description}</p>
 
           <div className="flex items-center space-x-2">
-            <button className="py-2 px-4 bg-black text-white font-semibold rounded">Add to cart</button>
+            <button
+              className="py-2 px-4 bg-black text-white font-semibold rounded"
+              onClick={() => addToCart(product._id)}
+            >
+              Add to cart
+            </button>
             <button className="py-2 px-4 border border-black text-black font-semibold rounded">Buy it now</button>
           </div>
         </section>

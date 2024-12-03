@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../store/authStore";
 import { FaCartShopping } from "react-icons/fa6";
+
+import { useAuthStore } from "../../store/authStore";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,39 +26,59 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4 uppercase text-sm">
             <Link
               to="/products"
-              className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+              className="py-2 px-4 bg-white text-gray-700 hover:text-black font-medium transition-colors"
             >
-              Products
+              Perfumes
             </Link>
 
-            {isAuthenticated && isVerified ? (
-              <Link
-                to="/dashboard"
-                className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-              >
-                {user.firstName}
-              </Link>
-            ) : (
-              <Link
-                to="/login"
-                className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-              >
-                Login
-              </Link>
-            )}
+            <Link
+              to="/scented-candles"
+              className="py-2 px-4 bg-white text-gray-700 hover:text-black font-medium transition-colors"
+            >
+              Scented Candles
+            </Link>
 
-            {isAuthenticated && isVerified ? (
-              <Link
-                to="/carts"
-                className="flex items-center justify-center text-white bg-black p-3 rounded-full text-xl hover:bg-gray-800 transition-colors"
-              >
-                <FaCartShopping />
-              </Link>
-            ) : null}
+            <Link
+              to="/about"
+              className="py-2 px-4 bg-white text-gray-700 hover:text-black font-medium transition-colors"
+            >
+              About
+            </Link>
+          </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-8">
+            {!isCheckingAuth ? (
+              isAuthenticated && isVerified ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                  >
+                    {user.firstName}
+                  </Link>
+                  <Link
+                    to="/carts"
+                    className="flex items-center justify-center text-white bg-black p-3 rounded-full text-xl hover:bg-gray-800 transition-colors"
+                  >
+                    <FaCartShopping />
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                >
+                  Login
+                </Link>
+              )
+            ) : (
+              // Show skeleton or loading spinner while checking auth
+              <div className="py-2 px-4 bg-gray-300 rounded-md animate-pulse">Loading...</div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -95,35 +116,37 @@ const Navbar = () => {
               Products
             </Link>
 
-            {isAuthenticated && isVerified ? (
-              // Display user name with link to /dashboard
-              <Link
-                to="/dashboard"
-                className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                onClick={toggleMenu}
-              >
-                {user.firstName}
-              </Link>
+            {!isCheckingAuth ? (
+              isAuthenticated && isVerified ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                    onClick={toggleMenu}
+                  >
+                    {user.firstName}
+                  </Link>
+                  <Link
+                    to="/carts"
+                    className="flex gap-2 items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                    onClick={toggleMenu}
+                  >
+                    <FaCartShopping /> Cart
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to="/signup"
+                  className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                  onClick={toggleMenu}
+                >
+                  Signup
+                </Link>
+              )
             ) : (
-              // Signup button
-              <Link
-                to="/signup"
-                className="py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                onClick={toggleMenu}
-              >
-                Signup
-              </Link>
+              // Mobile Loading placeholder
+              <div className="py-2 px-4 bg-gray-300 rounded-md animate-pulse">Loading...</div>
             )}
-
-            {isAuthenticated && isVerified ? (
-              <Link
-                to="/carts"
-                className="flex gap-2 items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                onClick={toggleMenu}
-              >
-                <FaCartShopping /> Cart
-              </Link>
-            ) : null}
           </nav>
         </div>
       </div>

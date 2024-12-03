@@ -1,9 +1,11 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import ClipLoader from "react-spinners/ClipLoader";
-import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+
+import { useAuthStore } from "../../store/authStore";
+
+import ClipLoader from "react-spinners/ClipLoader";
 
 const VerifyEmail = () => {
   const { verifyEmail, error, isLoading } = useAuthStore();

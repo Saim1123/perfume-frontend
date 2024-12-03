@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
+import toast from "react-hot-toast";
+
 import { API_URL } from "./authStore";
 
 export const useCartStore = create(set => ({
@@ -21,6 +23,7 @@ export const useCartStore = create(set => ({
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/cart/add`, { productId, quantity });
+      toast.success("Added on cart");
       set(state => ({ cartItems: [...state.cart, response.data.cart], isLoading: false }));
     } catch (error) {
       set({ error: error.response.data.message || "Failed to add to cart", isLoading: false });

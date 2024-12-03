@@ -1,14 +1,17 @@
 import React from "react";
-import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
+
+import { useAuthStore } from "../../store/authStore";
 
 const Dashboard = () => {
   const { logout } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigate("/");
+    logout().then(() => {
+      // Force reload after logout
+      window.location.reload(); // This will reload the page
+    });
   };
 
   return (

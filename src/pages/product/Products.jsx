@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import Product from "../../components/product/Product";
-import { useProductStore } from "../../store/productStore";
 import { ClipLoader } from "react-spinners";
+
+import { useProductStore } from "../../store/productStore";
+
+import Product from "../../components/product/Product";
 
 const Products = () => {
   const { products, fetchAllProducts, isLoading, error } = useProductStore();

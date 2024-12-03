@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
+
 import Navbar from "../components/header/Navbar";
 import Hero from "../components/header/Hero";
 import Footer from "../components/Footer";
@@ -6,6 +7,7 @@ import Footer from "../components/Footer";
 const Layout = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+
   return (
     <div>
       <Navbar />

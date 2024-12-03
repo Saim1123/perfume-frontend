@@ -35,13 +35,12 @@ const Product = ({ product }) => {
           <p>RS.{product.price}</p>
         </div>
         <div>
-          <Link
-            to="/carts"
+          <button
             onClick={() => addToCart(product._id)}
             className="border px-6 py-2 bg-black text-white cursor-pointer rounded-md hover:bg-gray-700 transition"
           >
             Add to cart
-          </Link>
+          </button>
         </div>
       </div>
     </div>
