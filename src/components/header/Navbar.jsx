@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 
 import { useAuthStore } from "../../store/authStore";
@@ -7,10 +7,9 @@ import { useAuthStore } from "../../store/authStore";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { checkAuth, isAuthenticated, isVerified, user, isCheckingAuth } = useAuthStore();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuth();
+    checkAuth().catch(err => console.error("Error checking auth", err));
   }, [checkAuth]);
 
   const toggleMenu = () => setIsOpen(!isOpen);

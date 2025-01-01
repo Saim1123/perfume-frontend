@@ -5,10 +5,17 @@ import toast from "react-hot-toast";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import { useAuthStore } from "../../store/authStore";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, error, isLoading } = useAuthStore();
+  const { login, error, isLoading, isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -23,6 +30,7 @@ const Login = () => {
       try {
         await login(email, password);
         navigate("/");
+        window.location.reload();
         toast.success("Login successfully");
       } catch (error) {
         console.error("Error: ", error);
@@ -65,7 +73,7 @@ const Login = () => {
       {error && <div className="text-red-600 text-sm md:text-base">{error}</div>}
 
       <p className="text-sm text-gray-500">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link className="underline text-black" to="/signup">
           Signup
         </Link>
